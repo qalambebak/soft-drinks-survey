@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cold Drinks Preference</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      overflow: hidden;
+      color: white;
+    }
+
+    /* Background image with animation */
+    .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.herzindagi.info/image/2022/May/cold-drink-hacks-to-know.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: blur(3px);
+      animation: backgroundMove 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes backgroundMove {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.1);
+      }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .buttons {
+      margin-top: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button#yes {
+      background-color: #28a745;
+      color: white;
+    }
+
+    button#no {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    .message {
+      font-size: 2rem;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    .emoji {
+      font-size: 3rem;
+      margin-top: 10px;
+      opacity: 0;
+      animation: fadeIn 1.5s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Image Animation -->
+  <div class="bg-image"></div>
+
+  <div class="container">
+    <h1>Will you still prefer these cold drinks?</h1>
+    <div class="buttons">
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
+    </div>
+
+    <!-- Message Section -->
+    <div class="message" id="thankYouMessage"></div>
+    <div class="emoji" id="emojiFace"></div>
+  </div>
+
+  <script>
+    // Get buttons and message elements
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    const thankYouMessage = document.getElementById('thankYouMessage');
+    const emojiFace = document.getElementById('emojiFace');
+
+    // Check if the user has already voted
+    let voted = localStorage.getItem('voted');
+
+    function showMessage(msg, emoji) {
+      thankYouMessage.textContent = msg;
+      emojiFace.textContent = emoji;
+      thankYouMessage.style.opacity = 1;
+      emojiFace.style.opacity = 1;
+    }
+
+    function handleVote(choice) {
+      if (!voted) {
+        if (choice === 'yes') {
+          showMessage('Thank you for your vote!', '😊');
+        } else {
+          showMessage('Thank you for your vote!', '😔');
+        }
+
+        // Save that the user has voted
+        localStorage.setItem('voted', true);
+      } else {
+        alert('You have already voted!');
+      }
+    }
+
+    yesBtn.addEventListener('click', () => handleVote('yes'));
+    noBtn.addEventListener('click', () => handleVote('no'));
+  </script>
+
+</body>
+</html>
